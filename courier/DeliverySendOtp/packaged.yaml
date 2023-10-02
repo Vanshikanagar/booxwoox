@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'booxwoox-backend Sample SAM Template for BooxWoox tech
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  DeliverySendOtp:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DeliverySendOtp
+      CodeUri: s3://booxwoox-lambdas/2b1b6ff3514966a6c50d8461638424d9
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        DeliverySendOtp:
+          Type: Api
+          Properties:
+            Path: /DeliverySendOtp
+            Method: post
+      Role: arn:aws:iam::910126409875:role/atm1504

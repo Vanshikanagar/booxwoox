@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'booxwoox-backend Sample SAM Template for BooxWoox tech
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  DeliveryVerifyOtp:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DeliveryVerifyOtp
+      CodeUri: s3://booxwoox-lambdas/56aae7fab3f271060229061611168196
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        DeliveryVerifyOtp:
+          Type: Api
+          Properties:
+            Path: /DeliveryVerifyOtp
+            Method: post
+      Role: arn:aws:iam::910126409875:role/atm1504
