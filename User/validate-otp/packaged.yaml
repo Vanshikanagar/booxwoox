@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'booxwoox-backend Sample SAM Template for BooxWoox tech
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  validateotp:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: validateotp
+      CodeUri: s3://booxwoox-lambdas/5571f1479b8d7401b34184b3a34c15ad
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        validateotp:
+          Type: Api
+          Properties:
+            Path: /validateotp
+            Method: post
+      Role: arn:aws:iam::910126409875:role/atm1504

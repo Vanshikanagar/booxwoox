@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: 'booxwoox-backend Sample SAM Template for BooxWoox tech'
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: "'POST, GET, OPTIONS'"
+        AllowHeaders: "'X-Forwarded-For,Authorization,Content-Type,Accept,authToken,authtoken'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
+        AllowCredentials: false
+  Getprofile:
+    Type: AWS::Serverless::Function 
+    Properties:
+      FunctionName: Getprofile
+      CodeUri: src/
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        getprofile:
+          Type: Api 
+          Properties:
+            Path: /get/profile
+            Method: GET
+            RestApiId:
+              Ref: ApiGatewayApi
+      Role: arn:aws:iam::910126409875:role/atm1504

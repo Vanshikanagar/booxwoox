@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'booxwoox-backend Sample SAM Template for BooxWoox tech
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  ImageUploader:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: imageuploader
+      CodeUri: s3://booxwoox-lambdas/e625d407a8b1fd3a667da5b317e386da
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        ImageUploader:
+          Type: Api
+          Properties:
+            Path: /upload/image
+            Method: post
+      Role: arn:aws:iam::910126409875:role/atm1504
