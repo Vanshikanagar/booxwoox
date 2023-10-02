@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: booxwoox-backend Sample SAM Template for BooxWoox tech
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: '''POST, GET, OPTIONS'''
+        AllowHeaders: '''X-Forwarded-For,Authorization,Content-Type,Accept,authToken,authtoken'''
+        AllowOrigin: '''*'''
+        MaxAge: '''600'''
+        AllowCredentials: false
+  Addcoupon:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: Addcoupon
+      CodeUri: s3://booxwoox-lambdas/18773b594e50ca9dc590e5e2662546a6
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        Addcoupon:
+          Type: Api
+          Properties:
+            Path: /Addcoupon
+            Method: POST
+            RestApiId:
+              Ref: ApiGatewayApi
+      Role: arn:aws:iam::910126409875:role/atm1504

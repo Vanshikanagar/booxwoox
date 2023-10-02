@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'getAllOrders
+
+  Sample SAM Template for getAllOrders
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: '''POST, GET, OPTIONS'''
+        AllowHeaders: '''X-Forwarded-For,Authorization,Content-Type,Accept,authToken,authtoken'''
+        AllowOrigin: '''*'''
+        MaxAge: '''600'''
+        AllowCredentials: false
+  getAllOrders:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: get_allOrders
+      CodeUri: s3://booxwoox-lambdas/ddfd27e8d92871699328af540c7efc9b
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Events:
+        getAllOrders:
+          Type: Api
+          Properties:
+            Path: /sarthak_test/allOrders
+            Method: POST
+            RestApiId:
+              Ref: ApiGatewayApi
+      Role: arn:aws:iam::910126409875:role/atm1504
